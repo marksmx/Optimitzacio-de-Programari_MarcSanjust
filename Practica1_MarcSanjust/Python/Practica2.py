@@ -6,13 +6,14 @@ class Equacio:
         self.a,self.b,self.c,self.d,self.e = self.eq.split(" ")
         self.A,self.B = self.a.split("x")
 
-        self.a = int(self.e) - int(self.c)
-        self.B = int(self.a) / int(self.A)
+        if self.b == "+":
+            self.a = float(self.e) - float(self.c)
+            self.B = float(self.a) / float(self.A)
+        else:
+            self.a = float(self.e) + float(self.c)
+            self.B = float(self.a) / float(self.A)
 
-        print int(self.B)
+        print float(self.B)
 
-hghg = Equacio("2x + 3 = 7")
-hghg.calcula()
-
-#2x = 7 - 3
-#x=(7 - 3) / 2
+#hghg = Equacio("200x - 50 = -78")
+#hghg.calcula()
