@@ -3,6 +3,11 @@ from Practica31 import Equacio
 
 class TestEq(unittest.TestCase):
     def test_eq(self):
+        #Test 0 - Registre d'errors
+        eq = Equacio("20x * 30 = ERROR")
+        eq.calcula()
+        self.assertEqual(eq.b, '*')
+        self.assertEqual(eq.e, 'Error')
         #Test 1 - Numeros Positius
         self.assertEqual(Equacio("20x + 30 = 70").calcula(),2.0)
         #Test 2 - Numeros Negatius
