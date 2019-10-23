@@ -43,7 +43,7 @@ def test(message):
 		def test(message):
 			bot.reply_to(message, "Paraguayo")
 
-    if lista == 4:
+	if lista == 4:
 		@bot.message_handler(commands=['Ghandi'])
 		def test(message):
 			bot.reply_to(message, "No, mediani.")
