@@ -51,7 +51,7 @@ El valor que donem, per defecte sera un String. En el main es passa a int, i d'a
 """
 
 if __name__ == '__main__': 
-    import doctest
-    #l = llista_primers(int(sys.argv[1]))
-    #print l.llista
-    doctest.testmod()
+    #import doctest
+    l = llista_primers(int(sys.argv[1]))
+    print l.llista
+    #doctest.testmod()
