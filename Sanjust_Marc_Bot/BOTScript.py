@@ -1,8 +1,16 @@
 import telebot
 import random
 from telebot import types
+from multiprocessing import Value
 
 bot = telebot.TeleBot("934530540:AAF-NYqSFHAtt8CgDZ5NQNwWQW8Vs1XkXAw")
+
+#@bot.message_handler(content_types=['text'])
+#def test(message):
+#	if message.text == "Hola":
+#		bot.reply_to(message, "STFU")
+
+fet_cobra = Value('i', 0)
 
 @bot.message_handler(commands=['joke'])
 def test(message):
@@ -18,7 +26,7 @@ def test(message):
 
 @bot.message_handler(commands=['question'])
 def test(message):
-	lista=(random.randint(1,5))
+	lista=(random.randint(1,2))
 	switcher = {
 		1: "Me acaba de picar una serpiente!",
 		2: "Buenos dias. Busco trabajo.",
@@ -27,16 +35,28 @@ def test(message):
 		5: "Sabes? Hoy me he comprado una paloma que cuesta diez mil euros."
 	}
 	bot.reply_to(message, switcher.get(lista,"Error"))
-
-	preg = False
-
-	if preg == False:
+	fet_cobra.value = 0
+	@bot.message_handler(content_types=['text'])
+	def test(message):
 		if lista == 1:
-			@bot.message_handler(commands=['Cobra'])
-			def test(message):
+			print 'v', fet_cobra.value
+			if message.text == "Cobra?" and fet_cobra.value == 0:
 				bot.reply_to(message, "No, idiota, lo ha hecho gratis!")
-			preg = True
+				fet_cobra.value = 1
+			elif fet_cobra.value == 0:
+				bot.reply_to(message, "Como que "+message.text+"?")
 
+		if lista == 2:
+			if message.text == "Que le parece de jardinero??" and fet_cobra.value == 0:
+				bot.reply_to(message, "Dejar dinero? Si lo que busco es trabajo!")
+				fet_cobra.value = 1
+			elif fet_cobra.value == 0:
+				bot.reply_to(message, "Quina feina es "+message.text+"?")
+		else:
+			print 'o'
+
+
+	"""
 		if lista == 2:
 		   @bot.message_handler(commands=['Jardinero'])
 		   def test(message):
@@ -60,6 +80,8 @@ def test(message):
 		 		def test(message):
 			 		bot.reply_to(message, "No no, no te exagero")
 	     		preg = True
+"""
+"""bot.update_listener()"""
+print bot
 
 bot.polling()
-
