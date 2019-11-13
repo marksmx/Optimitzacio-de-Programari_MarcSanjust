@@ -3,28 +3,34 @@ import random
 from telebot import types
 from multiprocessing import Value
 
-f = [line.rstrip('\n') for line in open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch.txt")]
 
 bot = telebot.TeleBot("934530540:AAF-NYqSFHAtt8CgDZ5NQNwWQW8Vs1XkXAw")
 
+f = [line.rstrip('\n') for line in open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch.txt")]
 
 fet_cobra = Value('i', 0)
+
+@bot.message_handler(commands=['add'])
+def insertarTexto(NombreArchivo, Texto):
+	cl_j=open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch_l.txt", message.text)
+	cl_j.write(Texto)
+	cl_j.close
 
 @bot.message_handler(commands=['joke'])
 def test(message):
 	lista=(random.randint(1,5))
 	switcher = {
-		1: "Cual es la fruta mas divertida? La naranja ja ja ja ja",
-		2: "Donde cuelga Superman su supercapa? En superchero",
-		3: "Que le dice una iguana a su hermana gemela? Somos iguanitas",
-		4: "Si los zombies se deshacen con el paso del tiempo, zombiodegradables?",
-		5: "Para que van una caja al gimnasio? Para hacerse caja fuerte."
+		1: cl_j[0],
+		2: cl_j[1],
+		3: cl_j[2],
+		4: cl_j[3],
+		5: cl_j[4]
 	}
 	bot.reply_to(message, switcher.get(lista,"Error"))
 
 @bot.message_handler(commands=['question'])
 def test(message):
-	lista=(random.randint(1,2))
+	lista=(random.randint(1,5))
 	switcher = {
 		1: "Me acaba de picar una serpiente!",
 		2: "Buenos dias. Busco trabajo.",
