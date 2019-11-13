@@ -11,10 +11,14 @@ fet_cobra = Value('i', 0)
 
 @bot.message_handler(commands=['add'])
 def test(message):
-	cl_j=open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch_l.txt",'a')
-	cl_j.write(message.text+"\n")
-	cl_j.close
-
+	if " " in message.text:
+		cl_j=open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch_l.txt",'a')
+		jk=message.text
+		jkf=jk.replace("/add ","")
+		cl_j.write(jkf+"\n")
+		cl_j.close
+	else:
+		print 0
 @bot.message_handler(commands=['joke'])
 def test(message):
 	lista=(random.randint(1,5))
