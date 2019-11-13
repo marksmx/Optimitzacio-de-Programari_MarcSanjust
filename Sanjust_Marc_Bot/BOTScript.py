@@ -3,7 +3,6 @@ import random
 from telebot import types
 from multiprocessing import Value
 
-
 bot = telebot.TeleBot("934530540:AAF-NYqSFHAtt8CgDZ5NQNwWQW8Vs1XkXAw")
 
 f = [line.rstrip('\n') for line in open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch.txt")]
@@ -11,9 +10,9 @@ f = [line.rstrip('\n') for line in open("/home/msanjust/Escriptori/test/Practica
 fet_cobra = Value('i', 0)
 
 @bot.message_handler(commands=['add'])
-def insertarTexto(NombreArchivo, Texto):
-	cl_j=open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch_l.txt", message.text)
-	cl_j.write(Texto)
+def test(message):
+	cl_j=open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch_l.txt",'a')
+	cl_j.write(message.text+"\n")
 	cl_j.close
 
 @bot.message_handler(commands=['joke'])
