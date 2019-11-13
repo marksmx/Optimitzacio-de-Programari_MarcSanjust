@@ -3,12 +3,10 @@ import random
 from telebot import types
 from multiprocessing import Value
 
+f = [line.rstrip('\n') for line in open("/home/msanjust/Escriptori/test/Practica1_MarcSanjust/Python/ch.txt")]
+
 bot = telebot.TeleBot("934530540:AAF-NYqSFHAtt8CgDZ5NQNwWQW8Vs1XkXAw")
 
-#@bot.message_handler(content_types=['text'])
-#def test(message):
-#	if message.text == "Hola":
-#		bot.reply_to(message, "STFU")
 
 fet_cobra = Value('i', 0)
 
@@ -36,52 +34,47 @@ def test(message):
 	}
 	bot.reply_to(message, switcher.get(lista,"Error"))
 	fet_cobra.value = 0
+
+
 	@bot.message_handler(content_types=['text'])
 	def test(message):
 		if lista == 1:
-			print 'v', fet_cobra.value
 			if message.text == "Cobra?" and fet_cobra.value == 0:
-				bot.reply_to(message, "No, idiota, lo ha hecho gratis!")
+				bot.reply_to(message, f[0])
 				fet_cobra.value = 1
 			elif fet_cobra.value == 0:
 				bot.reply_to(message, "Como que "+message.text+"?")
 
 		if lista == 2:
-			if message.text == "Que le parece de jardinero??" and fet_cobra.value == 0:
-				bot.reply_to(message, "Dejar dinero? Si lo que busco es trabajo!")
+			if message.text == "Que le parece de jardinero?" and fet_cobra.value == 0:
+				bot.reply_to(message, f[1])
 				fet_cobra.value = 1
 			elif fet_cobra.value == 0:
-				bot.reply_to(message, "Quina feina es "+message.text+"?")
-		else:
-			print 'o'
+				bot.reply_to(message, "Que trabajo es "+message.text+"?")
 
-
-	"""
-		if lista == 2:
-		   @bot.message_handler(commands=['Jardinero'])
-		   def test(message):
-			   bot.reply_to(message, "Dejar dinero? Si lo que busco es trabajo!")
-		   preg = True
-
-		   if lista == 3:
-			@bot.message_handler(commands=['Para'])
-			def test(message):
-			  bot.reply_to(message, "Paraguayo")
-  	  	  	preg = True
+		if lista == 3:
+			if message.text == "Para que?" and fet_cobra.value == 0:
+				bot.reply_to(message, f[2])
+				fet_cobra.value = 1
+			elif fet_cobra.value == 0:
+				bot.reply_to(message, "Como que para "+message.text+"?")
 
 		if lista == 4:
-			@bot.message_handler(commands=['Ghandi'])
-			def test(message):
-				bot.reply_to(message, "No, mediani.")
-			preg = True
+			if message.text == "Ghandi?" and fet_cobra.value == 0:
+				bot.reply_to(message, f[3])
+				fet_cobra.value = 1
+			elif fet_cobra.value == 0:
+				bot.reply_to(message, "Quien es "+message.text+"? Es fascista?")
 
-			if lista == 5:
-		 		@bot.message_handler(commands=['Mensajera'])
-		 		def test(message):
-			 		bot.reply_to(message, "No no, no te exagero")
-	     		preg = True
-"""
-"""bot.update_listener()"""
+		if lista == 5:
+			if message.text == "Mensajera?" and fet_cobra.value == 0:
+				bot.reply_to(message, f[4])
+				fet_cobra.value = 1
+			elif fet_cobra.value == 0:
+				bot.reply_to(message, message.text+"? Que?")
+
+		else:
+			print '0'
 print bot
 
 bot.polling()
