@@ -178,9 +178,16 @@ class Player(Entity):
 class Asteroid(Entity):
     def __init__(self, position):
         self.orig_image = pygame.image.load('assets/asteroid.png')
+        self.duration = 1000
         super(Asteroid, self).__init__(self.orig_image, position)
         self.motion = Vector(random.randint(-3,3), random.randint(-3,3))
 
+    def update(self):
+        if self.duration == 0:
+            self.kill()
+
+        self.duration-=5
+        
 class Bullet(Entity):
     def __init__(self, position,direction,magnitude):
         self.orig_image = pygame.image.load('assets/bullet.png')
