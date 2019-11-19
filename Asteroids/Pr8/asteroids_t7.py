@@ -197,38 +197,29 @@ class Bullet(Entity):
 
 def update_d():
     while world.running:
-        i = 0
-        f = 40
-        tope = 29
+        if len(world.sprites) < 29:
+            asteroid = Asteroid((random.randint(1,900),random.randint(1,900)))
+            world.sprites.add(asteroid)
 
-        while world.running:
-            if f%40 == 0 and i < tope:
-                asteroid = Asteroid((random.randint(1,900),random.randint(1,900)))
-                events = pygame.event.get()
-                world.sprites.add(asteroid)
-                f = 40
-                i += 1
-            f -= 1
-            world.update()
-
+        world.update()
         clock.tick(20)
-
-
 
 player = Player((400, 300))
 world = World((800, 600), player)
 world.running = True
 clock = pygame.time.Clock()
+
 def main():
     """ runs our application """
     # setup pygame
-    fil = threading.Thread(target=update_d())
+    pygame.init()
+    pygame.font.init()
+    pygame.mixer.init()
+    pygame.display.set_caption("Asteroids 0.2")
+    fil = threading.Thread(target=update_d)
     fil.start()
-    while running:
-        pygame.init()
-        pygame.font.init()
-        pygame.mixer.init()
-        pygame.display.set_caption("Asteroids 0.2")
+
+    while world.running:
 
         # store our game state
         #bullet = Bullet((world.player.position),20.0,20)
@@ -238,13 +229,13 @@ def main():
         # handle our events
         for event in events:
             if event.type == QUIT:
-                running = False
+                world.running = False
                 break
+            world.handle_event(event)
 
-        world.handle_event(event)
         world.render()
-        clock.tick(40)
         pygame.display.flip()
+        clock.tick(40)
 
 
 #world.pew = pygame.mixer.Sound('assets/pew.wav')
