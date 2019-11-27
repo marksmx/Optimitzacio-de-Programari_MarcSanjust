@@ -7,6 +7,7 @@ from pygame.locals import *
 from datetime import datetime
 from multiprocessing import Process, Queue
 from threading import Thread
+from cmath import pi
 
 class World(object):
     """ contains all of our game state """
@@ -92,7 +93,12 @@ class World(object):
             print('endavant stop')
         if event.key == pygame.K_SPACE:
             print('pew')
-            bullet = Bullet((20,30),20.0,20)
+            v = player.facing
+            v = math.atan2(-v.x, -v.y)*180/pi
+            bullet = Bullet((world.player.rect.center),v,6)
+            self.sprites.add(bullet)
+            world.pew = pygame.mixer.Sound('assets/pew.wav')
+
 
 
 class Vector(object):
@@ -255,7 +261,6 @@ pygame.display.set_caption("Asteroids 0.2")
 # store our game state
 player = Player((400, 300))
 world = World((800, 600), player)
-world.pew = pygame.mixer.Sound('assets/pew.wav')
 world.running = True
 # use the clock to throttle the fps to something reasonable
 clock = pygame.time.Clock()
