@@ -11,7 +11,7 @@ def primers(num):
 
 if __name__ == '__main__':
 #El Pool ens servira per indicar quants processos volem executar a la vegada.
-    pool = Pool(processes=10)
+    pool = Pool(processes=2)
     l = range(40000000, 40000100)
 #Aquesta linia inicia el contador per poder saber quan tarda.
     start = datetime.now()
