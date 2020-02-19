@@ -5,7 +5,7 @@ import sys
 import threading
 
 HOST = ''                 # Symbolic name meaning all available interfaces
-PORT = 51133             # Arbitrary non-privileged port
+PORT = 51121             # Arbitrary non-privileged port
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
 s.listen(2)
@@ -24,17 +24,20 @@ def echo(conn):
     while True:
         data = conn.recv(1024)
 
-        for x in l:
-            if x != conn:
-                x.sendall(data)
+        if (data == "Bye" or data == "Bye\n" or data == ""):
+            if conn in l:
+                conn.close()
+                l.remove(conn)
+                break
+        else:
+            for x in l:
+                if x != conn:
+                    x.sendall(data)
 
-        if (data == "Bye" or data == "Bye\n"):
-            l.remove(x)
-            x.close()
-            break
+
 
 dae2 = threading.Thread(target = rec)
 dae2.start()
 dae2.join()
 
-s.close()
+#s.close()

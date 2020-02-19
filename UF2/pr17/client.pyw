@@ -6,7 +6,7 @@ from ChatFns import *
 #---------------------------------------------------#
 WindowTitle = 'JChat v0.1 - Client'
 HOST = 'localhost'
-PORT = 51133
+PORT = 51121
 s = socket(AF_INET, SOCK_STREAM)
 
 #---------------------------------------------------#
@@ -24,7 +24,8 @@ def ClickAction():
     EntryBox.delete("0.0",END)
 
     #Send my mesage to all others
-    if (EntryText == "Bye" or EntryText == "Bye\n"):
+    if (EntryText == "Bye" or EntryText == "Bye\n" or EntryText == ""):
+        s.sendall(EntryText)
         s.close()
         base.destroy()
     else:
