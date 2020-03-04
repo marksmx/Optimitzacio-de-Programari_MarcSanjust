@@ -8,13 +8,14 @@ import base64
 #---------------------------------------------------#
 WindowTitle = 'JChat v0.1 - Client'
 HOST = 'localhost'
-PORT = 51125
+PORT = 51128
 s = socket(AF_INET, SOCK_STREAM)
 
 #---------------------------------------------------#
 #------------------ MOUSE EVENTS -------------------#
 #---------------------------------------------------#
 
+#--Enviar "Imag" per enviar una imatge#
 
 def sendIMG(s):
 
@@ -27,7 +28,7 @@ def sendIMG(s):
     s.sendall('/image ' + c_data)
 
 def recIMG(s, size):
-    im = open ("/home/msanjust/c1/dab.jpg","wb")
+    im = open ("/home/msanjust/c2/dab.jpg","wb")
     r_size = 0
     while r_size < size:
         t=s.recv(4096)
@@ -44,9 +45,11 @@ def ClickAction():
     #Erace previous message in Entry Box
     EntryBox.delete("0.0",END)
 
-
-    #Send my mesage to all others
     if (EntryText == "Bye" or EntryText == "Bye\n" or EntryText == ""):
+        s.sendall(EntryText)
+        s.close()
+        base.destroy()
+    elif (EntryText == "Imag" or EntryText == "Imag\n"):
         sendIMG(s)
         #s.sendall(EntryText)
         #s.close()
@@ -133,8 +136,6 @@ def ReceiveData():
             break
 
     #s.close()
-
-
 
 
 thread.start_new_thread(ReceiveData,())
